@@ -1,0 +1,8 @@
+CQ*1957690*Trần Văn A*13/2/1999*80
+CQ*1957691*Trần Văn Bướm*14/2/2002*90
+PCQ*1957692*Doãn Hải My*3/6/2000*Cao đẳng*2
+PCQ*2000324*Đoàn Văn Hậu*20/5/1997*Cao đẳng*2
+PCQ*2004544*Nguyễn Thanh Tùng*17/6/1998*Trung cấp*2.5
+CQ*2004567*Nguyễn Văn Tràm*9/9/2001*60
+PCQ*2004545*Bùi Xuân Huẩn*13/8/2002*Trung cấp*2.5
+CQ*2004679*Phan Thành Trung*9/10/2002*70

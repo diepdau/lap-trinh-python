@@ -1,0 +1,104 @@
+1. Phân biệt class attribute và instance attribute:
+Class Attribute:
+Được định nghĩa trong class và nằm ngoài các phương thức.
+Cùng một giá trị được chia sẻ bởi tất cả các instances của class đó.
+Thay đổi class attribute sẽ ảnh hưởng đến tất cả các instances của class.
+Ví dụ:
+
+python
+Copy code
+class MyClass:
+    class_attr = 0
+
+obj1 = MyClass()
+obj2 = MyClass()
+
+MyClass.class_attr = 10
+
+print(obj1.class_attr)  # Output: 10
+print(obj2.class_attr)  # Output: 10
+Instance Attribute:
+Được liên kết với mỗi instance riêng biệt.
+Không được chia sẻ giữa các instances khác nhau của class.
+Ví dụ:
+
+python
+Copy code
+class MyClass:
+    def __init__(self):
+        self.instance_attr = 0
+
+obj1 = MyClass()
+obj2 = MyClass()
+
+obj1.instance_attr = 5
+
+print(obj1.instance_attr)  # Output: 5
+print(obj2.instance_attr)  # Output: 0
+2. So sánh cách thực thi "access modifiers: public, private, protected" giữa Python và C#/Java:
+Python:
+
+Không có access modifiers trong ngữ cảnh của syntax, mà nó dựa vào việc đặt tên biến và phương thức.
+Một biến/method có tiền tố dưới dạng _ (single underscore) được coi là protected, nhưng vẫn có thể truy cập từ bên ngoài class.
+Một biến/method có tiền tố dưới dạng __ (double underscore) được coi là private và sẽ mang một tên động để ngăn truy cập từ bên ngoài class.
+C#/Java:
+
+Có các từ khóa public, private, protected để xác định mức độ truy cập.
+public: Có thể truy cập từ mọi nơi.
+private: Chỉ có thể truy cập bên trong class đó.
+protected: Có thể truy cập từ class con hoặc từ cùng package/namespace.
+3. Tìm hiểu thêm về y nghĩa và cách sử dụng các decorator: @property, @classmethod, @staticmethod trong Python:
+@property: Dùng để biến một method thành một thuộc tính, giúp truy cập dễ dàng hơn.
+python
+Copy code
+class MyClass:
+    def __init__(self):
+        self._x = 0
+
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        self._x = value
+
+obj = MyClass()
+obj.x = 5
+print(obj.x)  # Output: 5
+@classmethod: Dùng để tạo một phương thức thuộc class, chứ không phải thuộc instance.
+python
+Copy code
+class MyClass:
+    class_attr = 0
+
+    @classmethod
+    def increment(cls):
+        cls.class_attr += 1
+
+MyClass.increment()
+print(MyClass.class_attr)  # Output: 1
+@staticmethod: Giống @classmethod nhưng không nhận cls (hoặc self) làm đối số đầu tiên. Nó không liên quan đến class hay instance và không có quyền truy cập vào các biến hoặc phương thức của class.
+4. So sánh @classmethod và @staticmethod:
+@classmethod:
+
+Nhận vào cls (class) làm đối số đầu tiên.
+Có quyền truy cập vào các biến và phương thức của class.
+Thường được sử dụng khi cần thao tác với các thuộc tính/class level của class.
+@staticmethod:
+
+Không nhận vào cls hoặc self.
+Không có quyền truy cập vào các biến hoặc phương thức của class.
+Thường được sử dụng khi không cần truy cập tới các thông tin của class.
+5. So sánh sự giống và khác biệt ở cách áp dụng kế thừa, đa hình giữa Python và C#/Java:
+Python:
+
+Kế thừa đơn: class SubClass(BaseClass):.
+Hỗ trợ đa kế thừa (kế thừa từ nhiều class).
+Đa hình dựa trên nguyên tắc "duck typing" (kiểm tra xem một đối tượng có các phương thức mà nó cần hay không).
+C#/Java:
+
+Kế thừa đơn: class SubClass extends BaseClass.
+Chỉ hỗ trợ đa kế thừa thông qua interface (trong C#) hoặc multiple interfaces (trong Java).
+Đa hình dựa trên việc sử dụng các interfaces và đa hình trong OOP.
+Sự khác biệt chính giữa Python và C#/Java nằm ở việc xử lý kế thừa đa hình, cách sử dụng interface và việc kiểm tra đối tượng. Python dựa vào nguyên tắc "duck typing" trong khi C#/Java sử dụng các interfaces để đạt được đa hình.
