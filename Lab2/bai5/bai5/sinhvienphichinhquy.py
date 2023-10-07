@@ -1,6 +1,7 @@
 from sinhvien import SinhVien
 from datetime import datetime
 
+
 class SinhVienPhiCQ(SinhVien):
     def __init__(self, maSo: int, hoTen: str, ngaySinh: datetime, trinhdo: str, tgdt: int):
         super().__init__(maSo, hoTen, ngaySinh)
