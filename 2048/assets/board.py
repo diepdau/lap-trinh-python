@@ -35,11 +35,6 @@ class board:
                 if self.board[j][i] == 0:
                     gameOver = False
                     return None
-        for i in range(1,SIZE_BLOCK):
-            for j in range(SIZE_BLOCK):
-                  if self.board[j][i] == self.board[j-1][i] or self.board[j][i] == self.board[j][i-1] :
-                    gameOver = False
-                    return None
         self.game.gameOver = gameOver
 
 
