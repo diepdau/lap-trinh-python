@@ -3,6 +3,7 @@ from tkinter import ttk
 import re
 import openpyxl
 from tkinter import messagebox
+from datetime import datetime
 
 def focus1(event):
     course_field.focus_set()
@@ -42,8 +43,8 @@ def is_valid_student_id(student_id):
     return re.match(r"^\d{7}$", student_id) is not None
 
 def is_valid_email(email):
-    return re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email) is not None
-
+   regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+   return (re.fullmatch(regex, email)) is not None
 def is_valid_phone_number(phone):
     return re.match(r"^\d{10}$", phone) is not None
 
@@ -51,31 +52,33 @@ def is_valid_semester(semester):
     return semester in ["1", "2", "3"]
 
 def is_valid_date_of_birth(date_of_birth):
-    return re.match(r"^\d{2}/\d{2}/\d{4}$", date_of_birth) is not None
+    return datetime.strptime(date_of_birth, '%d/%m/%Y') is not None
+
+def is_valid_name(student_id):
+    return re.match(r"^[a-zA-Z\s]+$", student_id) is not None
 
 def is_valid_academic_year(academic_year):
-    return re.match(r"^\d{4}", academic_year) is not None
+    return re.match(r"^\d{4}-\d{4}$", academic_year) is not None
 
 def register():
-    # # Validate the data
-    # if (not is_valid_student_id(name_field.get()) or
-    #     not is_valid_email(email_id_field.get()) or
-    #     not is_valid_phone_number(contact_no_field.get()) or
-    #     not is_valid_semester(sem_field.get()) or
-    #     not is_valid_date_of_birth(form_no_field.get()) or
-    #     not is_valid_academic_year(address_field.get())):
-    #     messagebox.showerror("Lỗi", "Thông tin không hợp lệ. Vui lòng kiểm tra lại.")
-    #     return
+    # Validate the data
+    if (not is_valid_student_id(name_field.get()) or
+        not is_valid_name(course_field.get()) or
+        not is_valid_date_of_birth(sem_field.get()) or
+        not is_valid_email(form_no_field.get()) or
+        not is_valid_phone_number(contact_no_field.get())or
+        not is_valid_semester(email_id_field.get()) or
+        not is_valid_academic_year(address_field.get()) or
+        not any(monhoc_var[i].get() for i in range(len(mon_hoc_list)))):
+        messagebox.showerror("Lỗi", "Thông tin không hợp lệ. Vui lòng kiểm tra lại.")
+        return
 
-    # Gather selected subjects
     selected_subjects = [mon_hoc_list[i] for i in range(len(mon_hoc_list)) if monhoc_var[i].get()]
 
-    # Save data to Excel (or another data storage method)
     save_to_excel(name_field.get(), course_field.get(), sem_field.get(),
                   form_no_field.get(), contact_no_field.get(), email_id_field.get(),
                   address_field.get(), selected_subjects)
 
-    # Clear the input fields
     clear()
     clear_subjects()
     # Show success message
@@ -119,7 +122,7 @@ if __name__ == "__main__":
     root = Tk()
     root.configure(background='light green')
     root.title("Form Đăng Ký Học Phần")
-    root.geometry("500x300")
+    root.geometry("700x300")
 
     heading = Label(root, text="THÔNG TIN ĐĂNG KÍ HỌC PHẦN", bg="light green",fg="red")
     name = Label(root, text="Mã số sinh viên", bg="light green")
@@ -141,13 +144,13 @@ if __name__ == "__main__":
     address.grid(row=7, column=0)
     subject.grid(row=8, column=0)
 
-    nam = ["2020", "2021", "2022", "2023"]
-    mon_hoc_list = ["Môn 1", "Môn 2", "Môn 3", "Môn 4"]
+    nam = ["2020-2021", "2021-2022", "2022-2022", "2023-2024"]
+    mon_hoc_list = ["Lập trình Python","Phát triển ứng dụng web" ,"Lập trình mạng", "TK"]
     selected_mon_hoc = []
     monhoc_var = [BooleanVar() for _ in range(len(mon_hoc_list))]
     for i, mon_hoc in enumerate(mon_hoc_list):
         checkbox = Checkbutton(root, text=mon_hoc, variable=monhoc_var[i], onvalue=True, offvalue=False, bg='light green')
-        checkbox.grid(row=8+i//2, column=i%2+1, sticky=W, padx=(10,5))
+        checkbox.grid(row=9+i//2, column=i%2+1, sticky=W, padx=(1,2), pady=(1,1))
     selected_nam = StringVar() #Lưu giá trị được chọn
     name_field = Entry(root)
     course_field = Entry(root)
@@ -155,7 +158,6 @@ if __name__ == "__main__":
     form_no_field = Entry(root)
     contact_no_field = Entry(root)
     email_id_field = Entry(root)
-   # address_field = Entry(root)
     address_field = ttk.Combobox(root, textvariable=selected_nam, values=nam)
     
 
@@ -177,13 +179,13 @@ if __name__ == "__main__":
     address_field.set(nam[0])
     
     register_button = Button(root, text="Đăng kí", fg="Black",
-                            bg="red",command=register)
+                            bg="#3ed715",command=register)
     register_button.grid(row=12, column=0, pady=(10,0), padx=(10,5), sticky=E)
 
     exit_button = Button(root, text="Thoát", fg="Black",
-                            bg="Red",command=exit_program)
+                            bg="#3ed715",command=exit_program)
     exit_button.grid(row=12, column=1, pady=(10,0), sticky=W)
-     # Lưu thông tin vào file Excel
+
     wb = openpyxl.Workbook()
     sheet = wb.active
     sheet.title = "Đăng ký học phần"
