@@ -1,13 +1,14 @@
 from datetime import datetime
+
+
 class SinhVien:
-    truong="Dai hoc Da Lat"
-    
-    def _init_(self, maSo:int, hoTen: str, ngaySinh: datetime) -> None:
-        self._maSo = maSo
+    truong = "Đại học Đà Lạt"
+
+    def __init__(self, maSo: int, hoTen: str, ngaySinh: datetime):
+        self._maSo = maSo  # private
         self._hoTen = hoTen
         self._ngaySinh = ngaySinh
-        
-    
+
     @property
     def maSo(self):
         return self._maSo
@@ -37,11 +38,14 @@ class SinhVien:
     def laMaSoHopLe(maso: int):
         return len(str(maso)) == 7
 
-
     @classmethod
     def doiTenTruong(self, tenmoi):
         self.truong = tenmoi
-        
-        
-    def _str_(self) -> str:
-        return (f"{self._maSo}\t{self._hoTen}\t{self._ngaySinh}")
+     # tuong tu phuong thuc ghi de toString()
+
+    def __str__(self):
+        return f"{self._maSo}\t{self._hoTen}\t{self._ngaySinh}"
+    # hanh vi doi tuong sinh vien
+
+    def xuat(self):
+        print(f"{self._maSo}\t{self._hoTen}\t{self._ngaySinh}")
