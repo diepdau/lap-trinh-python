@@ -35,6 +35,11 @@ class board:
                 if self.board[j][i] == 0:
                     gameOver = False
                     return None
+        for i in range(1,SIZE_BLOCK):
+            for j in range(SIZE_BLOCK):
+                  if self.board[j][i] == self.board[j-1][i] or self.board[j][i] == self.board[j][i-1] :
+                    gameOver = False
+                    return None
         self.game.gameOver = gameOver
 
 
@@ -142,13 +147,14 @@ class board:
         if isMoved: self.__noname__()
         else:
             self.checkendgame()
+
+
     def draw(self, WIN):
         for y in range(SIZE_BLOCK):
             for x in range(SIZE_BLOCK):
-                value = max(self.board[y][x], 1)
-                r = 204 - math.log2(value) * 20
-                g = 204 - math.log2(value) * 20
-                b = 255 - math.log2(value) * 20
+                r = math.log2(max(self.board[y][x], 1)) * 20
+                g = 255 - math.log2(max(self.board[y][x], 1)) * 20
+                b = 255 - math.log2(max(self.board[y][x], 1)) * 20
                 SURF = pygame.Surface((SIZE_SQUARE - BORDER * 2, SIZE_SQUARE - BORDER * 2))
                 SURF.fill((r, g, b))
                 if self.board[y][x] > 0:
@@ -157,5 +163,4 @@ class board:
                     y_cen = SURF.get_height() // 2 - TEXT_SUR.get_height() // 2
                     SURF.blit(TEXT_SUR, (x_cen, y_cen), (0, 0, TEXT_SUR.get_width(), TEXT_SUR.get_height()))
                 WIN.blit(SURF, (x * SIZE_SQUARE + BORDER, y * SIZE_SQUARE + BORDER), (0, 0, SURF.get_width(), SURF.get_height()))
-        
         
