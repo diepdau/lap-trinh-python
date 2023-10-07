@@ -7,8 +7,8 @@ from danhsachsinhvien import DanhSachSV
 
 sv1 = SinhVienChinhQuy(1957690,"Trần Văn A", datetime.strptime("23/6/1999", "%d/%m/%Y"), 80)
 sv2 = SinhVienChinhQuy(1957691,"Nguyễn Văn C", datetime.strptime("5/12/1999", "%d/%m/%Y"), 90)
-sv3 = SinhVienPhiCQ(1957692,"Thái Thị Thu", datetime.strptime("15/8/1998", "%d/%m/%Y"), "Cao Đẳng",2)
-sv4 = SinhVienPhiCQ(2000324,"Trần Thanh Tâm", datetime.strptime("27/8/2000", "%d/%m/%Y"), "Cao Đẳng",2)
+sv3 = SinhVienPhiCQ(1957692,"Thái Thị Thu", datetime.strptime("15/8/1998", "%d/%m/%Y"), "Trung cấp", 2.5)
+sv4 = SinhVienPhiCQ(2000324,"Trần Thanh Tâm", datetime.strptime("2/8/1999", "%d/%m/%Y"), "Cao Đẳng",2)
 sv5 = SinhVienPhiCQ(2004544,"Nguyễn Thanh Trà", datetime.strptime("17/5/2000", "%d/%m/%Y"),"Trung Cấp", 2.5)
 sv6 = SinhVienChinhQuy(2004567,"Nguyễn Thành Nam", datetime.strptime("7/12/1999", "%d/%m/%Y"), 60)
 sv7 = SinhVienPhiCQ(2004545,"Nguyễn Thanh Thanh", datetime.strptime("29/10/1999", "%d/%m/%Y"),"Trung Cấp" ,2.5)
@@ -26,10 +26,21 @@ dssv.themSV(sv8)
 
 dssv.xuat()
 
-vt = dssv.timSVTheoMs(2000342)
+vt = dssv.timSVTheoMs(2004679)
 print(f"Sinh viên ở vị trí thứ {vt + 1} trong danh sách")
 kq = dssv.timSVTheoLoai("chinhquy")
 print("Danh sách sinh viên theo loại: ")
 for sv in kq:
     print(sv)
+    
+print("Danh sách sinh viên điểm rèn luyện 80: ")
+diemRL = dssv.timSVDiemHon80()
+for sv in diemRL:
+    print(sv)
+
+print("Danh sách sinh viên là cao đẳng có ngày sinh trước 15/8/1999")
+sv_caodang_sinhtruoc = dssv.timSV_CaoDang_SinhTruoc()
+for sv in sv_caodang_sinhtruoc:
+    print(sv)
+
 
